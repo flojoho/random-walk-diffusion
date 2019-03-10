@@ -5,12 +5,14 @@ const fps = 10;
 const numberOfCrawlers = 3000;
 
 const crawlers = [];
-for(let i = 0; i < numberOfCrawlers; i++) crawlers.push({x:0, y:0})
+for(let i = 1; i <= numberOfCrawlers; i++){
+  crawlers.push({x:0, y:0});
+}
 
-const gameLoop = function(){
+const animationLoop = function(){
   
   for(const crawler of crawlers){
-    switch(Math.floor(Math.random()*5)){
+    switch(Math.floor(Math.random() * 5)){
       case 0:
         crawler.x += 1;
         break;
@@ -26,28 +28,32 @@ const gameLoop = function(){
     }
   };
 
-  let tiles = {};
+  const tileCounters = {};
   
   for(const crawler of crawlers){
     const x = crawler.x;
     const y = crawler.y;
 
-    if(tiles[x] === undefined) tiles[x] = {};
-    if(tiles[x][y] === undefined) tiles[x][y] = 0;
-    tiles[x][y] += 1;
+    if(tileCounters[x] === undefined) tileCounters[x] = {};
+    if(tileCounters[x][y] === undefined) tileCounters[x][y] = 0;
+
+    tileCounters[x][y] += 1;
   }
 
   
+  ctx.setTransform(1, 0, 0, 1, 0, 0);
   ctx.fillStyle = 'hsl(0, 100%, 50%)';
   ctx.fillRect(0, 0, canvas.width, canvas.height);
-  for(const x in tiles){
-    for(const y in tiles[x]){
-      if(tiles[x][y] !== undefined){
-        ctx.fillStyle = `hsl(${tiles[x][y]*10}, 100%, 50%)`;
-        ctx.fillRect(x * 10 + canvas.width/2, y * 10 + canvas.height/2, 10, 10);
-      }
+
+  ctx.translate(canvas.width/2, canvas.height/2);
+  ctx.scale(10, 10);
+
+  for(const x in tileCounters){
+    for(const y in tileCounters[x]){
+      ctx.fillStyle = `hsl(${ tileCounters[x][y] * 10 }, 100%, 50%)`;
+      ctx.fillRect(x, y, 1, 1);
     }
   }
 }
 
-setInterval(gameLoop, 1000/fps);
+setInterval(animationLoop, 1000/fps);
