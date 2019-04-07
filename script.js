@@ -1,13 +1,28 @@
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
 
-const fps = 10;
-const numberOfCrawlers = 3000;
+let fps = 10;
+let numberOfCrawlers = 3000;
 
-const crawlers = [];
-for(let i = 1; i <= numberOfCrawlers; i++){
-  crawlers.push({x:0, y:0});
+let crawlers;
+
+
+
+numberSlider.value = numberOfCrawlers;
+numberSpan.innerText = numberOfCrawlers;
+frameRateSlider.value = fps;
+frameRateSpan.innerText = fps;
+
+
+function reset(){
+  crawlers = [];
+  for(let i = 1; i <= numberOfCrawlers; i++){
+    crawlers.push({x:0, y:0});
+  }
 }
+
+reset();
+
 
 const animationLoop = function(){
   
@@ -56,4 +71,23 @@ const animationLoop = function(){
   }
 }
 
-setInterval(animationLoop, 1000/fps);
+let interval = setInterval(animationLoop, 1000/fps);
+
+
+
+
+numberSlider.addEventListener('input', () => {
+  numberOfCrawlers = parseInt(numberSlider.value);
+  reset();
+
+  numberSpan.innerText = numberOfCrawlers;
+});
+
+frameRateSlider.addEventListener('input', () => {
+  fps = parseInt(frameRateSlider.value);
+  
+  clearInterval(interval);
+  interval = setInterval(animationLoop, 1000/fps);
+
+  frameRateSpan.innerText = fps;
+});
