@@ -3,22 +3,25 @@
   <head>
     <title>random walk</title>
     <link rel="stylesheet" href="styles.css">
-    <script src="script.js" defer></script>
+    <script src="script.js" type="module"></script>
   </head>
   <body>
-    <div id="container">
-      <div id="left">
+    <div class="container">
+      <main>
         <canvas id="canvas" width="600" height="480"></canvas>
-      </div>
-      <div id="right">
-        <div id="settings">
-          number of crawlers<br>
-          <input id="numberSlider" type="range" min="1" max="5000"><span id="numberSpan"></span>
-          <br><br>
-          frame rate<br>
-          <input id="frameRateSlider" type="range" min="1" max="60"><span id="frameRateSpan"></span>
+      </main>
+      <aside>
+        <div class="settings">
+          <div class="controller">
+            <label for="numberSlider">number of crawlers</label>
+            <input id="numberSlider" type="range" min="1" max="5000"><span id="numberSpan"></span>
+          </div>
+          <div class="controller">
+            <label for="frameRateSlider">frame rate</label>
+            <input id="frameRateSlider" type="range" min="1" max="60"><span id="frameRateSpan"></span>
+          </div>
         </div>
-      </div>
+      </aside>
     </div>
   </body>
 </html>

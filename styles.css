@@ -1,4 +1,4 @@
-body{
+body {
   margin: 0;
 
   display: flex;
@@ -13,19 +13,28 @@ canvas {
   display: block;
 }
 
-#container{
+.container {
   display: flex;
 }
 
-#left{
-
-}
-
-#right{
+aside {
   background-color: #EEEEEE;
   width: 254px;
 }
 
-#settings{
+.settings {
   padding: 20px;
+}
+
+#numberSpan, #frameRateSpan {
+  margin-left: 8px;
+}
+
+.controller {
+  margin-bottom: 25px;
+}
+
+.controller label {
+  display: block;
+  padding-bottom: 5px;
 }
