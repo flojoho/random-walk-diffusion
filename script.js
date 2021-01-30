@@ -14,7 +14,7 @@ frameRateSpan.innerText = fps;
 function reset() {
   crawlers = [];
   for(let i = 1; i <= numberOfCrawlers; i++) {
-    crawlers.push({x:0, y:0});
+    crawlers.push({ x:0, y:0 });
   }
 }
 
@@ -24,16 +24,19 @@ const animationLoop = function() {
   for(const crawler of crawlers) {
     switch(Math.floor(Math.random() * 5)) {
       case 0:
-        crawler.x += 1;
+        crawler.x++;
         break;
       case 1:
-        crawler.y += 1;
+        crawler.y++;
         break;
       case 2:
-        crawler.x -= 1;
+        crawler.x--;
         break;
       case 3:
-        crawler.y -= 1;
+        crawler.y--;
+        break;
+      case 4:
+        // do nothing, stay in the same position
         break;
     }
   };
@@ -44,22 +47,23 @@ const animationLoop = function() {
     const x = crawler.x;
     const y = crawler.y;
 
-    if(tileCounters[x] === undefined) tileCounters[x] = {};
-    if(tileCounters[x][y] === undefined) tileCounters[x][y] = 0;
+    if(typeof tileCounters[x] !== 'object') tileCounters[x] = {};
+    if(typeof tileCounters[x][y] !== 'number') tileCounters[x][y] = 0;
 
-    tileCounters[x][y] += 1;
+    tileCounters[x][y]++;
   }
   
+  // https://stackoverflow.com/questions/11144193/html5-translate-method-how-to-reset-to-default
   ctx.setTransform(1, 0, 0, 1, 0, 0);
   ctx.fillStyle = 'hsl(0, 100%, 50%)';
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-  ctx.translate(canvas.width/2, canvas.height/2);
+  ctx.translate(canvas.width / 2, canvas.height / 2);
   ctx.scale(10, 10);
 
-  for(const x in tileCounters) {
-    for(const y in tileCounters[x]) {
-      ctx.fillStyle = `hsl(${ tileCounters[x][y] * 10 }, 100%, 50%)`;
+  for(const [x, row] of Object.entries(tileCounters)) {
+    for(const [y, tileCount] of Object.entries(row)) {
+      ctx.fillStyle = `hsl(${ tileCount * 10 }, 100%, 50%)`;
       ctx.fillRect(x, y, 1, 1);
     }
   }
