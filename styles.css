@@ -1,12 +1,21 @@
+:root {
+  --white: #FFFFFF;
+  --light-gray: #DDDDDD;
+  --gray: hsl(0, 0%, 50%);
+  --dark-gray: hsl(0, 0%, 18%);
+  --black: hsl(0, 0%, 10%);
+  font-size: 1.1rem;
+}
+
 body {
   margin: 0;
-
   display: flex;
   justify-content: center;
-
-  font-family: Helvetica, Arial, sans-serif;
-  font-size: 16px;
-  color: #333333;
+  align-items: center;
+  height: 100vh;
+  font-family: monospace;
+  color: var(--white);
+  background-color: var(--black);
 }
 
 canvas {
@@ -15,26 +24,27 @@ canvas {
 
 .container {
   display: flex;
+  border-radius: 0.4rem;
+  overflow: hidden;
 }
 
 aside {
-  background-color: #EEEEEE;
-  width: 254px;
+  background-color: var(--dark-gray);
 }
 
 .settings {
-  padding: 20px;
+  padding: 1.8rem;
 }
 
 #numberSpan, #frameRateSpan {
-  margin-left: 8px;
+  margin-left: 0.7rem;
 }
 
 .controller {
-  margin-bottom: 25px;
+  margin-bottom: 2rem;
 }
 
 .controller label {
   display: block;
-  padding-bottom: 5px;
+  padding-bottom: 0.6rem;
 }
